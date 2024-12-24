@@ -65,10 +65,10 @@ frappe.ui.form.on("Stock Reconciliation", {
         if (res.message) {
           let existing_item_codes = frm.doc.items.map(item => item.item_code);
           let item_added = false;
-          
+          console.log("res.message.barcode", res.message.barcode);
           console.log("res.message.item_code", res.message.item_code);
           console.log("res.message.conversion_factor", res.message.conversion_factor);
-          
+          console.log("res.message.batch_no", res.message.batch_no);
           // Loop through existing items to check if item exists
           for (let item of frm.doc.items) {
             if (item.item_code === res.message.item_code) {
@@ -82,8 +82,11 @@ frappe.ui.form.on("Stock Reconciliation", {
           // If the item was not found in the existing items, add a new row
           if (!item_added) {
             let child = frm.add_child('items',{
+              "barcode":res.message.barcode,
               "item_code":res.message.item_code,
               "qty":res.message.conversion_factor,
+              "use_serial_batch_fields":1,  
+              "batch_no":res.message.batch_id,
             });
             // child.item_code = res.message.item_code;  // Set item_code
             // child.qty = res.message.conversion_factor; // Set qty as conversion_factor
