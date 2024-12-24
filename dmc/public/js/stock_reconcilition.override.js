@@ -78,7 +78,7 @@ frappe.ui.form.on("Stock Reconciliation", {
               break; // No need to add a new row, just update the existing one
             }
           }
-
+// 
           // If the item was not found in the existing items, add a new row
           if (!item_added) {
             let child = frm.add_child('items',{
